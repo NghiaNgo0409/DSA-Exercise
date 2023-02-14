@@ -18,6 +18,7 @@ public:
     void add(T e);
     void add(int index, T e);
     int size();
+    void print();
 
 public:
     class Node
@@ -44,6 +45,37 @@ public:
     };
 };
 
+template <class T>
+SLinkedList<T>::SLinkedList()
+{
+    head = new Node(0);
+    tail = new Node(0);
+    head->next = tail;
+    tail->next = head;
+}
+
+template <class T>
+void SLinkedList<T>::add(T e)
+{
+    Node *newNode = new Node(e, tail);
+    tail->next->next = newNode;
+    tail->next = newNode;
+}
+
+template <class T>
+void SLinkedList<T>::print()
+{
+    Node *tmp = head->next;
+    while (tmp != tail)
+    {
+        cout << tmp->data << " ";
+        tmp = tmp->next;
+    }
+}
+
 int main()
 {
+    SLinkedList<int> *list = new SLinkedList<int>();
+    list->add(10);
+    list->print();
 }

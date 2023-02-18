@@ -63,6 +63,19 @@ void SLinkedList<T>::add(T e)
 }
 
 template <class T>
+int SLinkedList<T>::size()
+{
+    Node *tmp = head->next;
+    int count = 0;
+    while (tmp != tail)
+    {
+        count++;
+        tmp = tmp->next;
+    }
+    return count;
+}
+
+template <class T>
 void SLinkedList<T>::print()
 {
     Node *tmp = head->next;
@@ -71,6 +84,7 @@ void SLinkedList<T>::print()
         cout << tmp->data << " ";
         tmp = tmp->next;
     }
+    cout << endl;
 }
 
 int main()
@@ -78,4 +92,5 @@ int main()
     SLinkedList<int> *list = new SLinkedList<int>();
     list->add(10);
     list->print();
+    cout << list->size();
 }

@@ -48,38 +48,94 @@ public:
 template <class T>
 SLinkedList<T>::SLinkedList()
 {
-    head = new Node(0);
-    tail = new Node(0);
-    head->next = tail;
-    tail->next = head;
+    head = nullptr;
+    tail = nullptr;
+    count = 0;
+}
+template <class T>
+SLinkedList<T>::~SLinkedList()
+{
+    Node *current = head;
+    while (current != nullptr)
+    {
+        Node *next = current->next;
+        delete current;
+        current = next;
+    }
 }
 
 template <class T>
 void SLinkedList<T>::add(T e)
 {
-    Node *newNode = new Node(e, tail);
-    tail->next->next = newNode;
-    tail->next = newNode;
+    Node *newNode = new Node(e, nullptr);
+    if (head == nullptr && tail == nullptr)
+    {
+        head = newNode;
+        tail = newNode;
+    }
+    else
+    {
+        tail->next = newNode;
+        tail = newNode;
+    }
+    count++;
+}
+
+template <class T>
+void SLinkedList<T>::add(int index, T e)
+{
+    if (index < 0 || index > size())
+    {
+        return;
+    }
+    else
+    {
+        Node *newNode = new Node(e, 0);
+        if (index == 0)
+        {
+            if (head == nullptr && tail == nullptr)
+            {
+                head = newNode;
+                tail = newNode;
+            }
+            else
+            {
+                newNode->next = head;
+                head = newNode;
+            }
+        }
+        else if (index == size())
+        {
+            add(newNode->data);
+            return;
+        }
+        else
+        {
+            int i = 0;
+            Node *tmp = head;
+            while (i < index - 1)
+            {
+                tmp = tmp->next;
+                i++;
+            }
+            newNode->next = tmp->next;
+            tmp->next = newNode;
+        }
+        count++;
+    }
 }
 
 template <class T>
 int SLinkedList<T>::size()
 {
-    Node *tmp = head->next;
-    int count = 0;
-    while (tmp != tail)
-    {
-        count++;
-        tmp = tmp->next;
-    }
     return count;
 }
 
 template <class T>
 void SLinkedList<T>::print()
 {
-    Node *tmp = head->next;
-    while (tmp != tail)
+    Node *tmp = head;
+    while (tmp != nullptr)
     {
         cout << tmp->data << " ";
         tmp = tmp->next;
@@ -89,8 +145,12 @@ void SLinkedList<T>::print()
 
 int main()
 {
-    SLinkedList<int> *list = new SLinkedList<int>();
-    list->add(10);
-    list->print();
-    cout << list->size();
+    SLinkedList<int> list;
+    int value[] = {10, 15, 2, 6, 4, 7, 40, 8};
+    int index[] = {0, 0, 1, 3, 2, 3, 5, 0};
+    for (int i = 0; i < 8; i++)
+    {
+        list.add(index[i], value[i]);
+    }
+    list.print();
 }

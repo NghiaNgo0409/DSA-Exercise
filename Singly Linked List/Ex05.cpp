@@ -18,6 +18,11 @@ public:
     void add(T e);
     void add(int index, T e);
     int size();
+    bool empty();
+    T get(int index);
+    void set(int index, T e);
+    int indexOf(T item);
+    bool contains(T item);
     void print();
 
 public:
@@ -129,6 +134,59 @@ template <class T>
 int SLinkedList<T>::size()
 {
     return count;
+}
+
+template <class T>
+bool SLinkedList<T>::empty()
+{
+    return count == 0;
+}
+
+template <class T>
+T SLinkedList<T>::get(int index)
+{
+    if (index < 0 || index >= size())
+        throw std::out_of_range("Index out of range");
+    Node *tmp = head;
+    for (int i = 0; i < index; i++)
+    {
+        tmp = tmp->next;
+    }
+    return tmp->data;
+}
+
+template <class T>
+void SLinkedList<T>::set(int index, T e)
+{
+    if (index < 0 || index >= size())
+        throw std::out_of_range("Index out of range");
+    Node *tmp = head;
+    for (int i = 0; i < index; i++)
+    {
+        tmp = tmp->next;
+    }
+    tmp->data = e;
+}
+
+template <class T>
+int SLinkedList<T>::indexOf(T item)
+{
+    Node *tmp = head;
+    int i = 0;
+    while (tmp != nullptr)
+    {
+        if (tmp->data == item)
+            return i;
+        tmp = tmp->next;
+        i++;
+    }
+    return -1;
+}
+
+template <class T>
+bool SLinkedList<T>::contains(T item)
+{
+    return indexOf(item) != -1;
 }
 
 template <class T>

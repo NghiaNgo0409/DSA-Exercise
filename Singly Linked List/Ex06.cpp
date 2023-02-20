@@ -18,11 +18,14 @@ public:
     void add(T e);
     void add(int index, T e);
     int size();
+    void clear();
     bool empty();
     T get(int index);
     void set(int index, T e);
     int indexOf(T item);
     bool contains(T item);
+    T removeAt(int index);
+    bool removeItem(T item);
     void print();
 
 public:
@@ -137,6 +140,20 @@ int SLinkedList<T>::size()
 }
 
 template <class T>
+void SLinkedList<T>::clear()
+{
+    if (head == nullptr && tail == nullptr)
+        return;
+    Node *tmp = head;
+    while (tmp != nullptr)
+    {
+        Node *next = tmp->next;
+        delete tmp;
+        tmp = next;
+    }
+}
+
+template <class T>
 bool SLinkedList<T>::empty()
 {
     return count == 0;
@@ -190,6 +207,63 @@ bool SLinkedList<T>::contains(T item)
 }
 
 template <class T>
+T SLinkedList<T>::removeAt(int index)
+{
+    if (count == 0)
+    {
+        throw std::out_of_range("List is empty");
+    }
+    else
+    {
+        Node *tmp = head;
+        if (index == 0)
+        {
+            T data = head->data;
+            head = head->next;
+            delete tmp;
+            count--;
+            return data;
+        }
+        else
+        {
+            for (int i = 0; i < index - 1; i++)
+            {
+                tmp = tmp->next;
+            }
+            T data = tmp->next->data;
+            Node *current = tmp->next;
+            if (index == count - 1)
+            {
+                tmp->next = nullptr;
+                tail = tmp;
+            }
+            else
+            {
+                tmp->next = tmp->next->next;
+            }
+            delete current;
+            count--;
+            return data;
+        }
+    }
+}
+
+template <class T>
+bool SLinkedList<T>::removeItem(T item)
+{
+    int index = indexOf(item);
+    if (index == -1)
+    {
+        return false;
+    }
+    else
+    {
+        removeAt(index);
+        return true;
+    }
+}
+
+template <class T>
 void SLinkedList<T>::print()
 {
     Node *tmp = head;
@@ -204,4 +278,11 @@ void SLinkedList<T>::print()
 int main()
 {
     SLinkedList<int> list;
+
+    for (int i = 0; i < 10; i++)
+    {
+        list.add(i);
+    }
+    list.removeItem(9);
+    list.print();
 }

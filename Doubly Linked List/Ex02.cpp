@@ -17,6 +17,7 @@ public:
     void add(const T &e);
     void add(int index, const T &e);
     int size();
+    void print();
 
 public:
     class Node
@@ -43,6 +44,128 @@ public:
     };
 };
 
+template <class T>
+DLinkedList<T>::DLinkedList()
+{
+    head = nullptr;
+    tail = nullptr;
+    count = 0;
+}
+
+template <class T>
+DLinkedList<T>::~DLinkedList()
+{
+    while (head != nullptr)
+    {
+        Node *tmp = head;
+        head = head->next;
+        delete tmp;
+    }
+    tail = nullptr;
+    count = 0;
+}
+
+template <class T>
+void DLinkedList<T>::add(const T &e)
+{
+    Node *currentNode = new Node(e);
+    if (head == nullptr && tail == nullptr)
+    {
+        head = currentNode;
+        tail = currentNode;
+    }
+    else
+    {
+        tail->next = currentNode;
+        currentNode->previous = tail;
+        tail = currentNode;
+    }
+    count++;
+}
+
+template <class T>
+void DLinkedList<T>::add(int index, const T &e)
+{
+    if (index < 0 || index > count)
+    {
+        return;
+    }
+    else
+    {
+        Node *currentNode = new Node(e);
+        if (index == 0)
+        {
+            if (head == nullptr && tail == nullptr)
+            {
+                head = currentNode;
+                tail = currentNode;
+            }
+            else
+            {
+                head->previous = currentNode;
+                currentNode->next = head;
+                head = currentNode;
+            }
+        }
+        else if (index == count)
+        {
+            currentNode->previous = tail;
+            if (tail != nullptr)
+            {
+                tail->next = currentNode;
+            }
+            else
+            {
+                head = currentNode;
+            }
+            tail = currentNode;
+        }
+        else
+        {
+            int pos = 0;
+            Node *tmp = head;
+            while (pos != index)
+            {
+                pos++;
+                tmp = tmp->next;
+            }
+            currentNode->previous = tmp->previous;
+            (tmp->previous)->next = currentNode;
+            currentNode->next = tmp;
+            tmp->previous = currentNode;
+        }
+        count++;
+    }
+}
+
+template <class T>
+int DLinkedList<T>::size()
+{
+    return 0;
+}
+
+template <class T>
+void DLinkedList<T>::print()
+{
+    Node *tmp = head;
+    while (tmp != nullptr)
+    {
+        cout << tmp->data << " ";
+        tmp = tmp->next;
+    }
+    cout << endl;
+}
+
 int main()
 {
+    DLinkedList<int> list;
+    int size = 10;
+    // for (int i = 0; i < 10; i++)
+    // {
+    //     list.add(i);
+    // }
+    list.print();
+    list.add(0, 11);
+    list.add(1, 12);
+    list.print();
 }

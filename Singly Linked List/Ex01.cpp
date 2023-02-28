@@ -81,8 +81,12 @@ void print(LLNode *head)
 
 int main()
 {
-    LLNode *l0 = new LLNode(2, new LLNode(9));
-    LLNode *l1 = new LLNode(0, new LLNode(5));
-    LLNode *head = addLinkedList(l0, l1);
+    // LLNode *l0 = new LLNode(2, new LLNode(9));
+    // LLNode *l1 = new LLNode(0, new LLNode(5));
+    // LLNode *head = addLinkedList(l0, l1);
+    LLNode *head = new LLNode(0, new LLNode(3,
+                                            new LLNode(2,
+                                                       new LLNode(1,
+                                                                  new LLNode(5)))));
     print(head);
 }

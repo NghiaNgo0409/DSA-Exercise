@@ -60,9 +60,9 @@ void DataLog::subtractCurrentState(int number)
 
 void DataLog::save()
 {
-    if (currentState != --logList.end())
+    if (currentState++ != logList.end())
     {
-        logList.pop_back();
+        logList.erase(currentState++, logList.end());
     }
     logList.push_back(logList.back());
     currentState = --logList.end();
@@ -91,6 +91,11 @@ int main()
     log.addCurrentState(15);
     log.save();
     log.addCurrentState(15);
+    log.save();
     log.undo();
+    log.undo();
+    log.printLog();
+    cout << "\n";
+    log.save();
     log.printLog();
 }

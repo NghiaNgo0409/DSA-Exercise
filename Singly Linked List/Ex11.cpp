@@ -166,6 +166,6 @@ int main()
     l2->add(55);
     l2->add(45);
     l2->add(42);
-    l1->replace(l2, 1, 3);
+    l1->replace(l2, -1, 2);
     l1->print();
 }

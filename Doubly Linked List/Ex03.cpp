@@ -146,7 +146,7 @@ void DLinkedList<T>::add(int index, const T &e)
 template <class T>
 int DLinkedList<T>::size()
 {
-    return 0;
+    return count;
 }
 
 template <class T>

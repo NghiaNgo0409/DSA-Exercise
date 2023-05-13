@@ -58,7 +58,7 @@ string parenthesesReversal(string s)
 // Test function
 int main()
 {
-    string s = "a(bcdefghijkl(mno)p)q";
+    string s = "vi(ik)kq";
     cout << "Input string: " << s << endl;
     cout << "Output string: " << parenthesesReversal(s) << endl;
     return 0;

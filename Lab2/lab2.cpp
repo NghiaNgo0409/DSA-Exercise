@@ -4,6 +4,19 @@
 using namespace std;
 int main()
 {
+    // Test for SLL
+    // SLL<int> list;
+    // for (int i = 0; i < 10; i++)
+    // {
+    //     list.add(i);
+    // }
+    // list.print();
+    // list.removeAt(4);
+    // list.print();
+    // list.add(2, 11);
+    // list.print();
+
+    // Test for Queue
     Queue<int> queue;
     for (int i = 0; i < 10; i++)
     {
@@ -17,5 +30,4 @@ int main()
     cout << queue.peek() << endl;
     queue.remove(5);
     queue.print();
-    // zxcxz
 }
